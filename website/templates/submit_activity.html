@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="teams-page"></div>
+  <div class="header">
+     <h1> Submit Activity </h1>
+  </div>
+
+  <table id="teams">
+    <tbody>
+      <tr>
+        <th> Name </th>
+        <th> Hours of Activity</th>
+        <th> Last Date Entered</th>
+        <th> Last Amount Entered</th>
+      </tr>
+      <tr>
+    
+        <td> {{current_user.username}}</td>
+        <td> 
+            <form method="POST">
+                <h3 align="center"> </h3>
+                <div class="form-group">
+                    <label for="activity"> </label>
+                    <input 
+                      type="text" 
+                      id="activity" 
+                      name="activity" 
+                      class="form-control" 
+                      placeholder="Enter Hours Exercised"
+                    />
+                    <br/>
+                </div>
+        </td>
+        <td> 
+          {{last_activity.date_created}}
+        </td>
+        <td>
+          {{last_activity.amount}} Hours
+        </td>
+
+      </tr>
+      
+    </tbody>
+
+  </table>
+</div>
+</br>
+<div align="center">
+    <button class="btn btn-primary" type="submit"> Submit Activity </button>
+</div>
+</form> 
+{% endblock %}

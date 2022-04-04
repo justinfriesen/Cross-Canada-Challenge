@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(views, url_prefix="/") #urlprefix = all orutes inside of views, what will they be prefixed by? Do we want prefix to be/home/api? or just /home? We do not want url prefix.
     app.register_blueprint(auth, url_prefix="/")
     
-    from .models import User ##must import User from .models. If we do not import user, when we create db it will nto create user table. Must import all models we want to be created before we created db so the db creates the models.
+    from .models import User, Team, Activity ##must import User from .models. If we do not import user, when we create db it will nto create user table. Must import all models we want to be created before we created db so the db creates the models.
 
     
     create_database(app)

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import current_user, login_user, logout_user, login_required, current_user ##current_user allows us to access any info about user when they are logged in.
 from werkzeug.security import generate_password_hash, check_password_hash ##in new_user variable in signup function below. We were trying to store password in plain text. This is no bueno. Need to hash the password. This is what this module is for.
 from . import db
-from .models import User
+from .models import User, Team
 
 ##request import is a variable will store all of the context related to a specific request
 
@@ -35,6 +35,7 @@ def sign_up():
     if request.method == 'POST': ##must see if user is creating account or is just requesting for HTML using GET. Must check what method we have.
       email =request.form.get("email")
       username =request.form.get("username")
+      team = request.form.get("team")
       password1 =request.form.get("password1")
       password2 =request.form.get("password2")
 
@@ -55,14 +56,26 @@ def sign_up():
           flash('Email is invalid', category='error')
           ##if we get none of these error messages, then we can create an account.
       else:
-          new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
-          ##at this point, user is still not in db. Below is how to add user to db.
-          db.session.add(new_user) ##this preps it to be added to db.
-          db.session.commit() ##this actually adds it to db. 
-          login_user(new_user, remember=True)
-          flash('User Created!')
-          return redirect(url_for('views.home'))
+          team_exists = Team.query.filter_by(name=team).first()
+          print(team_exists)
+          if team_exists:
+              new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'), team_name=team_exists.id) ##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
+              db.session.add(new_user)
+              db.session.commit()
+              login_user(new_user, remember=True)
+              flash('User Created!')
+              return redirect(url_for('views.home'))
 
+          else:
+              new_team = Team(name=str(team))
+              db.session.add(new_team)
+              db.session.commit()
+              new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'), team_name=team_exists.id) ##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
+              db.session.add(new_user)
+              db.session.commit()
+              login_user(new_user, remember=True)
+              flash('User Created!')
+              return redirect(url_for('views.home'))
 
     return render_template("signup.html", user=current_user) ##not post method. Just return signup html page.
 

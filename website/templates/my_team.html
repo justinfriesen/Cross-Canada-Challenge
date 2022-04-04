@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="teams-page"></div>
+  <div class="header">
+     <h1> {{team.name}} </h1>
+  </div>
+
+
+  <table id="teams">
+    <tbody>
+      <tr>
+        <th> Name </th>
+        <th> # of KM Travelled</th>
+        <th> Percent Achieved </th>
+      </tr>
+      {% for member in team_members %}
+      <tr>
+    
+        <td> {{member.username}}</td>
+        <td> {{team.name}}</td>
+        <td> 
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+        </td>
+    
+
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+</div>
+
+{% endblock %}
