@@ -11,6 +11,7 @@
         crossorigin="anonymous"/>
 
         <script src="https://kit.fontawesome.com/9d71452360.js" crossorigin="anonymous"></script>
+        
     
     
         <title>{% block title %} {% endblock %}</title>
@@ -36,6 +37,7 @@
               {% if user.is_authenticated %}
               <a class="nav-item nav-link" href="/team/{{team.id}}"> My Team </a>
               <a class="nav-item nav-link" href="/team-standings"> Team Standings </a>
+              <a class="nav-item nav-link" href="/submit-activity"> Submit Activity </a>
               <a class="nav-item nav-link" href="/logout"> Logout </a>
               {% else %}
               <a class="nav-item nav-link" href="/login"> Login </a>
@@ -58,5 +60,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
     crossorigin="anonymous">
     </script>
+    
+    
 </body>
 </html>

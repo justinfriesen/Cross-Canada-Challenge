@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True) #no users can have duplicate emails.
     username = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
+    team_captain = db.Column(db.Boolean)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     team_name = db.Column(db.Integer, db.ForeignKey('team.id', ondelete="CASCADE"), nullable=False)
     activities = db.relationship('Activity', backref='user', passive_deletes=True)

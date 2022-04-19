@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<h1>{{team.name}}</h1>
+
+<h3>Welcome to the Cross Canada Challenge. You are on team {{current_user.team_name}}. 
+    Look at the marker on the map below to see how far your team has travelled across Canada!
+</h3>
+<script 
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlEvHbwY9Al-udOmwEYj04DAru0xRqy58"></script>
+</script>
+
+<div id="map"></div>
+<div id="{{team.id}}"></div>
+<script type="text/javascript" src="{{ url_for('static', filename='index.js')}}">
+</script>
+
+
+
+
+
 {% endblock %}

@@ -5,6 +5,7 @@
   <div class="header">
      <h1> Submit Activity </h1>
   </div>
+  {% if current_user.team_captain == False%}
 
   <table id="teams">
     <tbody>
@@ -12,13 +13,15 @@
         <th> Name </th>
         <th> Hours of Activity</th>
         <th> Last Date Entered</th>
-        <th> Last Amount Entered</th>
+        <th> Last Points Earned</th>
       </tr>
       <tr>
     
-        <td> {{current_user.username}}</td>
         <td> 
-            <form method="POST">
+          {{current_user.username}}</td>
+        <td> 
+            <form method="POST"
+              action = "/submit/{{current_user.id}}">
                 <h3 align="center"> </h3>
                 <div class="form-group">
                     <label for="activity"> </label>
@@ -33,10 +36,19 @@
                 </div>
         </td>
         <td> 
-          {{last_activity.date_created}}
+            {% if activity|length == 0%}
+            You have not submitted anything!
+            {% else %}
+            {{last_activity.date_created}}
+            {% endif %}
         </td>
         <td>
-          {{last_activity.amount}} Hours
+            {% if activity|length == 0%}
+            You have not submitted any activities!
+            {% else %}
+            {{last_activity.amount}} KM
+            {% endif %}
+          
         </td>
 
       </tr>
@@ -49,5 +61,74 @@
 <div align="center">
     <button class="btn btn-primary" type="submit"> Submit Activity </button>
 </div>
-</form> 
+</form>
+{% else %}
+{% for member in members%}
+<table id="teams">
+  <tbody>
+    <tr>
+      <th> Name </th>
+      <th> Hours of Activity</th>
+      <th> Last Date Entered</th>
+      <th> Last Points Earned</th>
+      <th>Submit Activity</th>
+    </tr>
+    
+    <tr>
+  
+      <td> 
+        <span id="{{member.id}}"></span>
+        {{member.username}}</td>
+      <td> 
+          <form method="POST"
+            action="/submit/{{member.id}}">
+              <h3 align="center"> </h3>
+              <div class="form-group">
+                  <label for="activity"> </label>
+                  <input 
+                    type="text" 
+                    id="activity"
+                    name="activity" 
+                    class="form-control" 
+                    placeholder="Enter Hours Exercised"
+                  />
+                  <br/>
+              </div>
+      </td>
+      <td> 
+          {% if member.activities|length == 0%}
+          You have not submitted anything!
+          {% else %}
+          {{member.activities[-1].date_created}}
+          {% endif %}
+      </td>
+      <td>
+          {% if member.activities|length == 0%}
+          You have not submitted any activities!
+          {% else %}
+          {{member.activities[-1].amount}} KM
+          {% endif %}
+        
+      </td>
+      <td>
+        <div align="center">
+          <button class="btn btn-primary" type="submit"> Submit Activity </button>
+        </div>
+        </form>
+
+      </td>
+
+    </tr>
+    
+  </tbody>
+
+</table>
+
+
+
+{% endfor %}
+</div>
+</br>
+
+{% endif %}
 {% endblock %}

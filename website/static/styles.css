@@ -46,3 +46,7 @@
   background-color: #eb130c;
   color: white;
 }
+
+#map {
+  height: 400px;
+}

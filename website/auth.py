@@ -38,6 +38,17 @@ def sign_up():
       team = request.form.get("team")
       password1 =request.form.get("password1")
       password2 =request.form.get("password2")
+      team_captain = request.form.get("teamcaptain")
+      print (team_captain)
+      
+      if team_captain == "on":
+          team_captain = True
+          print (team_captain)
+      
+      else:
+          team_captain = False
+          print (team_captain)
+    
 
       ##how to look into db to see if user already exists.
       email_exists = User.query.filter_by(email=email).first()#using .first guarantees we will find only instance of user with that email, if they exist.
@@ -59,7 +70,7 @@ def sign_up():
           team_exists = Team.query.filter_by(name=team).first()
           print(team_exists)
           if team_exists:
-              new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'), team_name=team_exists.id) ##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
+              new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'), team_captain=team_captain, team_name=team_exists.id) ##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
               db.session.add(new_user)
               db.session.commit()
               login_user(new_user, remember=True)
@@ -70,7 +81,7 @@ def sign_up():
               new_team = Team(name=str(team))
               db.session.add(new_team)
               db.session.commit()
-              new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'), team_name=team_exists.id) ##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
+              new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'), team_captain=team_captain, team_name=new_team.id) ##use the class we made (User) to make a new user, duh!!! ID will be auto created and same with time, do not need ot pass it into our class.
               db.session.add(new_user)
               db.session.commit()
               login_user(new_user, remember=True)
