@@ -76,23 +76,3 @@ To run this application, you'll need:
 ## Contributing
 
 This project was a learning exercise and is no longer actively maintained. However, feel free to fork it and adapt it for your own needs.
-
-## Project Context
-
-This application was developed as part of a co-op term project in March/April 2022. While it never made it to production, it served as a valuable learning experience in full-stack development, API integration, and user authentication. You can read more about the project journey in this [blog post](link-to-your-blog-post).
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Author
-
-Justin Friesen
-- [GitHub](https://github.com/justinfriesen)
-- [LinkedIn](https://www.linkedin.com/in/justin-friesen/)
-
-## Acknowledgments
-
-- University of Waterloo CCCARE facility
-- UW WELL-FIT program participants and staff
-- Tech with Tim tutorials that helped with Flask fundamentals
